@@ -6,7 +6,9 @@ const int trig_pin= 12;//the pin trigger
 int ech_pin= 13; //the pin echo
 int distance= 0;
 int duration=0;
+int pirState = LOW; // start the state of the PIR to be low (no motion)
 int sensorPin= 2;
+int pirValue = 0; // variable to store change in PIR value
 void setup() {
   // set the pin
   pinMode(trig_pin, INPUT);//trigger pin as input
@@ -17,7 +19,8 @@ void setup() {
 
 void motion_sensor(){//motion sensor function 
   while(true){
-    if(digitalRead(sensorPin) == LOW){//condtion to test if the pin data 2 is low when it senses a moving object.
+   pirValue = digitalRead(sensorPin); // read pin 2  value
+if ((pirValue == HIGH)&&(pirState==LOW)) { // check if motion has occured
 //call the servo motor function to open and to close the trash bin lid
 delay(2000); //we put a delay of 2 second 
     }
