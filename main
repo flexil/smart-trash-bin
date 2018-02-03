@@ -1,0 +1,42 @@
+#include <Servo.h>
+
+Servo Servo1;
+Servo Servo2;
+const int trig_pin= 12;//the pin trigger
+int ech_pin= 13; //the pin echo
+int distance= 0;
+int duration=0;
+int sensorPin= 2;
+void setup() {
+  // set the pin
+  pinMode(trig_pin, INPUT);//trigger pin as input
+  pinMode(ech_pin, OUTPUT);//echo pin as output
+  pinMode(sensorPin, INPUT_PULLUP);// Set the sensor pin as digital input and activate the internal pull-up resistor
+  delay(5000);//wait 5s to scan the area
+}
+
+void motion_sensor(){//motion sensor function 
+  while(true){
+    if(digitalRead(sensorPin) == LOW){//condtion to test if the pin data 2 is low when it senses a moving object.
+//call the servo motor function to open and to close the trash bin lid
+delay(2000); //we put a delay of 2 second 
+    }
+  }
+}
+//function to detect the height of the waste in the trash bin
+void range(){
+  digitalWrite(trig_pin,HIGH);
+  delay(10);
+  digitalWrite(trig_pin,LOW);
+  duration= pulseIn(ech_pin, HIGH);
+  distance = ((duration/2)*0.0343);
+  Serial.print("the range is ");
+  Serial.print(distance);
+  if(distance <=0 || distance >=50 )
+  Serial.print("out of range ");
+}
+void loop(){
+  // put your main code here, to run repeatedly:
+     Serial.begin(9600);
+    
+}
