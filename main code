@@ -1,0 +1,63 @@
+#include <Servo.h>
+//creates servo object to control a servo
+Servo myservo;
+int angle=0;// angle is of type int 
+int pirState = LOW; // start the state of the PIR to be low (no motion)
+int sensorPin= 2;
+int pirValue = 0; // variable to store change in PIR value
+const int trig_pin= 12;//the pin trigger
+int ech_pin= 13; //the pin echo
+int distance;
+int duration;
+
+void setup(){
+ // set which pin the servo is connected on the arduino
+myservo.attach(9); //attaches the servo on pin 9 to the servo object
+pinMode(sensorPin, INPUT_PULLUP);// Set the sensor pin as digital input and activate the internal pull-up resistor
+pinMode(trig_pin, INPUT);//trigger pin as input
+pinMode(ech_pin, OUTPUT);//echo pin as output
+
+}
+
+void rotate(){  
+for (angle=0; angle<180; angle+=1){
+myservo.write(angle); //directs servo to go to position in variable 'angle 180 degree
+delay(20);
+//waits 20ms between servo commands
+}
+//swept angle from 180 to 0 degrees
+for (angle=180; angle>=1; angle-=1) {
+myservo.write(angle); //moves servo back in opposite direction
+delay(20); //waits 20ms between servo commands
+}
+}
+
+
+//function to detect the height of the waste in the trash bin
+void range(){
+  digitalWrite(trig_pin,HIGH);
+  delay(10);
+  digitalWrite(trig_pin,LOW);
+  duration= pulseIn(ech_pin, HIGH);
+  distance = ((duration/2)*0.0343);
+  Serial.print("the range is ");
+  Serial.print(distance);
+  if(distance <=0 || distance >=50 )
+  Serial.print("out of range ");
+}
+void motion_sensor(){//motion sensor function 
+  while(true){
+   pirValue = digitalRead(sensorPin); // read pin 2  value
+if ((pirValue == HIGH)&&(pirState==LOW) && distance <=80) { // check if motion has occured
+//call the servo motor function to open and to close the trash bin lid
+  rotate();
+delay(2000); //we put a delay of 2 second 
+}
+  }
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+motion_sensor();
+range();
+}
