@@ -1,0 +1,17 @@
+//code for motion detector alarm circuit
+const int buzzerPin= 12;//buzzer pin
+const int inputPin= 2; sensor output pin
+
+void setup(){
+pinMode(buzzerPin, OUTPUT);
+pinMode(inputPin, INPUT);
+}
+
+void loop(){
+int value= digitalRead(inputPin);
+if (value == HIGH)
+
+{
+digitalWrite(buzzerPin, HIGH);
+}
+}
