@@ -1,0 +1,25 @@
+//code must include Servo.h library in order to work
+#include <Servo.h>
+//creates servo object to control a servo
+Servo myservo;
+int angle=0;// angle is of type int 
+
+void setup()// set which pin the servo is connected on the arduino
+{
+myservo.attach(9); //attaches the servo on pin 9 to the servo object
+}
+//main function starts here
+void loop()
+{
+// swept angle from 0 to 180 degrees in steps of 1 degree
+for (angle=0; angle<180; angle+=1){
+myservo.write(angle); //directs servo to go to position in variable 'angle 180 degree
+delay(20);
+//waits 20ms between servo commands
+}
+//swept angle from 180 to 0 degrees
+for (angle=180; angle>=1; angle-=1) {
+myservo.write(angle); //moves servo back in opposite direction
+delay(20); //waits 20ms between servo commands
+}
+}
