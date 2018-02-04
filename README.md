@@ -1,3 +1,3 @@
 # smart-trash-bin
-my final year project on smart trash bin and garbage monitoring system
-MAXWELL AIT GH 
+My final year project on smart trash bin and garbage monitoring system using mapping technology
+Kpizingui Maximilien AIT GH 
